@@ -1,0 +1,231 @@
+/* ===================================================================
+   WaveBackground — bande colorée ondulée, ancrée sur un bord au choix
+   (haut / bas / gauche / droite) via [data-direction] sur le composant.
+
+   Principe :
+   - "bottom" (axe vertical) et "right" (axe horizontal) sont les deux
+     implémentations de base.
+   - "top"  = "bottom" retourné verticalement   → transform: scaleY(-1)
+   - "left" = "right"  retourné horizontalement  → transform: scaleX(-1)
+   Le flip inverse en même temps la position de la bande, le sens du
+   glissé d'intro ET l'orientation de la vague : un seul mécanisme
+   pour couvrir les 4 sens, pas de duplication.
+
+   Fonctionnement du slider (identique quel que soit l'axe) :
+   1. .WaveSlider démarre en couvrant toute la section (translate 0)
+      → l'écran est plein de --wave-color
+   2. Il glisse vers le bord cible avec cubic-bezier fluide
+   3. Il s'ARRÊTE une fois que le bord ondulé est visible sur ce bord
+      (il ne sort pas complètement de l'écran)
+
+   ⚠️ Point important sur le calcul du déplacement final :
+   .WaveSlider mesure (100% du conteneur + band-h). Les pourcentages
+   dans un `transform` se calculent sur la taille de l'ÉLÉMENT LUI-MÊME
+   (donc 100% = H + band-h), pas sur celle du conteneur. Pour amener
+   le bord ondulé exactement à l'intérieur du conteneur (et non pas
+   H entiers plus loin, ce qui le faisait sortir de l'écran), le
+   déplacement correct est (H - band-h), obtenu avec
+   calc(100% - 2 * var(--band-h)) — et non calc(100% - var(--band-h)).
+=================================================================== */
+
+.WaveBackground {
+    --track-h: clamp(90px, 14vh, 180px);
+    /* épaisseur du ruban ondulé */
+    --band-h: clamp(130px, 22vh, 280px);
+    /* épaisseur totale de la bande colorée */
+    --period: calc(var(--track-h) * 6);
+    --intro-duration: 2.8s;
+    --intro-ease: cubic-bezier(0.76, 0, 0.24, 1);
+
+    position: absolute;
+    inset: 0;
+    overflow: visible;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.WaveBackground[data-direction="top"] {
+    transform: scaleY(-1);
+}
+
+.WaveBackground[data-direction="left"] {
+    transform: scaleX(-1);
+}
+
+.WaveSlider {
+    position: absolute;
+    will-change: transform;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Slider — axe vertical (bottom / top)                               */
+/* ------------------------------------------------------------------ */
+
+.WaveBackground[data-direction="bottom"] .WaveSlider,
+.WaveBackground[data-direction="top"] .WaveSlider {
+    left: 0;
+    right: 0;
+    top: 0;
+    height: calc(100% + var(--band-h));
+}
+
+.WaveBackground[data-direction="bottom"]:not(.hasIntro) .WaveSlider,
+.WaveBackground[data-direction="top"]:not(.hasIntro) .WaveSlider {
+    transform: translateY(calc(100% - 2 * var(--band-h)));
+}
+
+.WaveBackground[data-direction="bottom"].introPending .WaveSlider,
+.WaveBackground[data-direction="top"].introPending .WaveSlider {
+    transform: translateY(0);
+}
+
+.WaveBackground[data-direction="bottom"].hasIntro .WaveSlider,
+.WaveBackground[data-direction="top"].hasIntro .WaveSlider {
+    animation: waveSlideInY var(--intro-duration) var(--intro-ease) forwards;
+}
+
+@keyframes waveSlideInY {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(calc(95% - 2 * var(--band-h)));
+    }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Slider — axe horizontal (right / left)                             */
+/* ------------------------------------------------------------------ */
+
+.WaveBackground[data-direction="right"] .WaveSlider,
+.WaveBackground[data-direction="left"] .WaveSlider {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: calc(100% + var(--band-h));
+}
+
+.WaveBackground[data-direction="right"]:not(.hasIntro) .WaveSlider,
+.WaveBackground[data-direction="left"]:not(.hasIntro) .WaveSlider {
+    transform: translateX(calc(100% - 2 * var(--band-h)));
+}
+
+.WaveBackground[data-direction="right"].introPending .WaveSlider,
+.WaveBackground[data-direction="left"].introPending .WaveSlider {
+    transform: translateX(0);
+}
+
+.WaveBackground[data-direction="right"].hasIntro .WaveSlider,
+.WaveBackground[data-direction="left"].hasIntro .WaveSlider {
+    animation: waveSlideInX var(--intro-duration) var(--intro-ease) forwards;
+}
+
+@keyframes waveSlideInX {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(calc(70% - 2 * var(--band-h)));
+    }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Aplat solide (remplit l'arrière du ruban jusqu'au bord "hors écran") */
+/* ------------------------------------------------------------------ */
+
+.WaveBackground[data-direction="bottom"] .WaveSolid,
+.WaveBackground[data-direction="top"] .WaveSolid {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: calc(var(--track-h) - 8px);
+    background-color: var(--wave-color);
+}
+
+.WaveBackground[data-direction="right"] .WaveSolid,
+.WaveBackground[data-direction="left"] .WaveSolid {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: calc(var(--track-h) - 8px);
+    background-color: var(--wave-color);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Couche de vague — bord ondulé du ruban, côté "contenu"              */
+/* ------------------------------------------------------------------ */
+
+.WaveBackground[data-direction="bottom"] .WaveTrack,
+.WaveBackground[data-direction="top"] .WaveTrack {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--track-h);
+    overflow: hidden;
+}
+
+.WaveBackground[data-direction="right"] .WaveTrack,
+.WaveBackground[data-direction="left"] .WaveTrack {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: var(--track-h);
+    overflow: hidden;
+}
+
+.WaveLayer {
+    position: absolute;
+    background-color: var(--wave-color);
+    opacity: 1;
+    will-change: transform;
+}
+
+.WaveBackground[data-direction="bottom"] .WaveLayer,
+.WaveBackground[data-direction="top"] .WaveLayer {
+    bottom: 0;
+    left: 0;
+    width: calc(100% + var(--period));
+    height: 100%;
+    -webkit-mask: var(--wave-tile-front, none) 0 0 / var(--period) 100% repeat-x;
+    mask: var(--wave-tile-front, none) 0 0 / var(--period) 100% repeat-x;
+}
+
+.WaveBackground[data-direction="right"] .WaveLayer,
+.WaveBackground[data-direction="left"] .WaveLayer {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: calc(100% + var(--period));
+    -webkit-mask: var(--wave-tile-front, none) 0 0 / 100% var(--period) repeat-y;
+    mask: var(--wave-tile-front, none) 0 0 / 100% var(--period) repeat-y;
+}
+
+
+/* ------------------------------------------------------------------ */
+/*  Accessibilité — mouvement réduit                                   */
+/* ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .WaveBackground[data-direction="bottom"] .WaveSlider,
+    .WaveBackground[data-direction="top"] .WaveSlider {
+        animation: none !important;
+        transform: translateY(calc(100% - 2 * var(--band-h)));
+    }
+
+    .WaveBackground[data-direction="right"] .WaveSlider,
+    .WaveBackground[data-direction="left"] .WaveSlider {
+        animation: none !important;
+        transform: translateX(calc(100% - 2 * var(--band-h)));
+    }
+
+    .WaveLayer {
+        animation: none !important;
+    }
+}
