@@ -4,7 +4,7 @@ import { ThemedText } from './components/ThemedText'
 import { Reveal } from './components/Reveal';
 import { Colors } from './contsants/Colors';
 import { Menu, X, ChevronDown, ChevronRight, ChevronUp, Mail, Phone } from "lucide-react"
-import MyLogo from "./assets/MyLogo.svg?react";
+import MyLogo from "./assets/myLogo.svg?react";
 import IconUIDesign from "./assets/iconUIDesign.svg?react";
 import IconLaunch from "./assets/iconLaunch.svg?react";
 import IconPhone from "./assets/iconPhone.svg?react";
