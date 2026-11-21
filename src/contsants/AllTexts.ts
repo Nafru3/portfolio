@@ -7,9 +7,11 @@ export const allTexts = {
         },
 
         welcome: {
+            badge: "Disponible pour de nouveaux projets",
             title1: "Salut !",
             title2: "C'est Nathan",
-            description: "Vous avez une idée ou un projet à concrétiser ? Je vous accompagne dans la création de site web et d’application mobiles.",
+            role: "Développeur web & mobile - passionné d'intelligence artificielle",
+            description: "Vous avez une idée ou un projet à concrétiser ? Je conçois des sites web et des applications mobiles rapides, modernes et intuitifs.",
             buttonContact: "Me contacter",
             buttonWork: "Voir mon travail",
         },
@@ -17,9 +19,9 @@ export const allTexts = {
         about: {
             title: "À propos de moi",
             text1: "Je suis développeur web et mobile, passionné par la création de solutions numériques modernes et utiles.",
-            text2: "J’aime partir d’une idée, comprendre les besoins qui se cachent derrière un projet et la transformer en une application intuitive, performante et adaptée à ses utilisateurs. Je m’intéresse particulièrement aux nouvelles technologies et à l’intelligence artificielle, que je cherche constamment à intégrer et à explorer dans mes projets.",
+            text2: "J’aime partir d’une idée, comprendre les besoins qui se cachent derrière un projet et la transformer en une application intuitive et performante, adaptée à ses utilisateurs. Je m’intéresse particulièrement aux nouvelles technologies et à l’intelligence artificielle, que je cherche constamment à intégrer et à explorer dans mes projets.",
             text3: "Actuellement en maîtrise en informatique, spécialisation Intelligence Artificielle, je continue à développer mes compétences afin de proposer des solutions toujours plus innovantes et pertinentes.",
-            text4: "Que vous ayez besoin de créer une application, de développer un site web ou de donner vie à une idée, je suis toujours intéressé par de nouveaux projets et défis."
+            text4: "Que vous ayez besoin de créer une application, de développer un site web ou de donner vie à une idée, je suis toujours intéressé par de nouveaux projets et défis.",
         },
         whatido: {
             title: "Ce que je fais",
@@ -38,6 +40,11 @@ export const allTexts = {
             subdescription1: "Disponible sur le Play Store et l’App Store",
             description2: "Essaye de deviner le rgb d’une couleur",
             subdescription2: "Disponible sur le Play Store",
+            github: {
+                title: "Et plus sur GitHub",
+                description: "Le code de mes projets, mes expérimentations et quelques contributions open-source.",
+                repository: "github.com/Nafru3",
+            },
         },
         skills: {
             title: "Mes compétences",
@@ -63,6 +70,9 @@ export const allTexts = {
         footer: {
             subtitle1: "Navigation",
             subtitle2: "Me contacter",
+            subtitle3: "Réseaux",
+            copyright: "© 2026 Nathan Frume - Tous droits réservés",
+            builtWith: "Fait avec React & TypeScript",
         }
     },
 
@@ -74,9 +84,11 @@ export const allTexts = {
         },
 
         welcome: {
+            badge: "Available for new projects",
             title1: "Hi!",
             title2: "It's Nathan",
-            description: "Do you have an idea or a project to bring to life? I can help you build websites and mobile apps.",
+            role: "Web & mobile developer - AI enthusiast",
+            description: "Do you have an idea or a project to bring to life? I design fast, modern and intuitive websites and mobile apps.",
             buttonContact: "Contact Me",
             buttonWork: "See My Work",
         },
@@ -86,7 +98,7 @@ export const allTexts = {
             text1: "I'm a web and mobile developer, passionate about creating modern, useful digital solutions.",
             text2: "I like starting from an idea, understanding the needs behind a project, and turning it into an intuitive, high-performing app suited to its users. I'm particularly interested in new technologies and artificial intelligence, which I'm always looking to integrate and explore in my projects.",
             text3: "Currently pursuing a master's degree in Computer Science, specializing in Artificial Intelligence, I keep developing my skills to offer increasingly innovative and relevant solutions.",
-            text4: "Whether you need to build an app, develop a website, or bring an idea to life, I'm always interested in new projects and challenges."
+            text4: "Whether you need to build an app, develop a website, or bring an idea to life, I'm always interested in new projects and challenges.",
         },
         whatido: {
             title: "What I Do",
@@ -105,6 +117,11 @@ export const allTexts = {
             subdescription1: "Available on the Play Store and App Store",
             description2: "Try to guess a color's RGB value",
             subdescription2: "Available on the Play Store",
+            github: {
+                title: "More on GitHub",
+                description: "The code behind my projects, my experiments and a few open-source contributions.",
+                repository: "github.com/Nafru3",
+            },
         },
         skills: {
             title: "My Skills",
@@ -130,6 +147,9 @@ export const allTexts = {
         footer: {
             subtitle1: "Navigation",
             subtitle2: "Contact Me",
+            subtitle3: "Social",
+            copyright: "© 2026 Nathan Frume - All rights reserved",
+            builtWith: "Built with React & TypeScript",
         }
     }
 }

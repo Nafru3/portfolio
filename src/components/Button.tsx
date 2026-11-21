@@ -13,7 +13,18 @@ type ButtonType = {
 
 export function Button({ text, backgroundColor, textColor, onClick, style, className = "" }: ButtonType) {
     return (
-        <div className={`button ${className}`} style={{ backgroundColor, ...style }} onClick={onClick}>
+        <div
+            className={`button ${className}`}
+            style={{ backgroundColor, ...style }}
+            onClick={onClick}
+            tabIndex={0}
+            onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    onClick();
+                }
+            }}
+        >
             <ThemedText text={text} color={textColor || Colors.Background} type="sub_title" />
         </div>
     )

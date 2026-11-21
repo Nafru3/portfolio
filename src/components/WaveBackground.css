@@ -1,5 +1,5 @@
 /* ===================================================================
-   WaveBackground — bande colorée ondulée, ancrée sur un bord au choix
+   WaveBackground - bande colorée ondulée, ancrée sur un bord au choix
    (haut / bas / gauche / droite) via [data-direction] sur le composant.
 
    Principe :
@@ -25,7 +25,7 @@
    le bord ondulé exactement à l'intérieur du conteneur (et non pas
    H entiers plus loin, ce qui le faisait sortir de l'écran), le
    déplacement correct est (H - band-h), obtenu avec
-   calc(100% - 2 * var(--band-h)) — et non calc(100% - var(--band-h)).
+   calc(100% - 2 * var(--band-h)) - et non calc(100% - var(--band-h)).
 =================================================================== */
 
 .WaveBackground {
@@ -58,7 +58,7 @@
 }
 
 /* ------------------------------------------------------------------ */
-/*  Slider — axe vertical (bottom / top)                               */
+/*  Slider - axe vertical (bottom / top)                               */
 /* ------------------------------------------------------------------ */
 
 .WaveBackground[data-direction="bottom"] .WaveSlider,
@@ -95,7 +95,7 @@
 }
 
 /* ------------------------------------------------------------------ */
-/*  Slider — axe horizontal (right / left)                             */
+/*  Slider - axe horizontal (right / left)                             */
 /* ------------------------------------------------------------------ */
 
 .WaveBackground[data-direction="right"] .WaveSlider,
@@ -156,7 +156,7 @@
 }
 
 /* ------------------------------------------------------------------ */
-/*  Couche de vague — bord ondulé du ruban, côté "contenu"              */
+/*  Couche de vague - bord ondulé du ruban, côté "contenu"              */
 /* ------------------------------------------------------------------ */
 
 .WaveBackground[data-direction="bottom"] .WaveTrack,
@@ -208,7 +208,7 @@
 
 
 /* ------------------------------------------------------------------ */
-/*  Accessibilité — mouvement réduit                                   */
+/*  Accessibilité - mouvement réduit                                   */
 /* ------------------------------------------------------------------ */
 
 @media (prefers-reduced-motion: reduce) {

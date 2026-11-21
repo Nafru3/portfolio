@@ -1,3 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Gloock&display=swap');
 /* @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap'); */
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap');
+
+/* Mot "surligné au feutre jaune" : [[ ... ]] dans un ThemedText */
+.ThemedHighlight {
+    position: relative;
+    z-index: 0;
+    color: var(--Color-Background);
+}
+
+.ThemedHighlight::before {
+    content: "";
+    position: absolute;
+    left: -0.14em;
+    right: -0.14em;
+    top: 0.46em;
+    bottom: -0.02em;
+    background: var(--Color-Primary);
+    border-radius: 7px;
+    z-index: -1;
+    transform: skewX(-9deg) rotate(-0.6deg);
+}

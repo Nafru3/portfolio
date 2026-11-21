@@ -1,13 +1,75 @@
 .button {
-    padding: 15px 35px;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 34px;
     border: none;
+    border-radius: 12px;
     cursor: pointer;
     width: fit-content;
-    border-radius: 12px;
-    box-shadow: inset 0 -5px 5px rgba(0, 0, 0, 0.3);
-    transition: box-shadow 0.3s ease;
+    isolation: isolate;
+    overflow: hidden;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 17, 43, 0.1),
+        0 10px 22px -12px rgba(0, 17, 43, 0.65);
+    transition:
+        transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.25s ease,
+        filter 0.25s ease;
+}
+
+/* Léger reflet haut, pour un rendu net et premium */
+.button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), transparent 55%);
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.button p {
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
 }
 
 .button:hover {
-    box-shadow: inset 0 -5px 5px rgba(0, 0, 0, 0.5);
+    transform: translateY(-2px);
+    filter: brightness(1.04) saturate(1.03);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.38),
+        inset 0 -1px 0 rgba(0, 17, 43, 0.12),
+        0 16px 28px -12px rgba(0, 17, 43, 0.7);
+}
+
+.button:active {
+    transform: translateY(0) scale(0.98);
+    filter: brightness(0.98);
+    box-shadow:
+        inset 0 2px 4px rgba(0, 17, 43, 0.22),
+        0 4px 10px -8px rgba(0, 17, 43, 0.5);
+}
+
+.button:focus-visible {
+    outline: 3px solid var(--Color-Primary);
+    outline-offset: 3px;
+}
+
+.button.BigButton {
+    padding: 17px 40px;
+    border-radius: 14px;
+}
+
+.button.BigButton p {
+    font-size: clamp(1.02rem, 1.5vw, 1.2rem);
+    font-weight: 600;
+    letter-spacing: 0.03em;
 }
